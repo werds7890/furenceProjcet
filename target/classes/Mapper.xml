@@ -5,7 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.furence.DAO">
 
-
+<select id="loginSelect" resultType="com.furence.VO.UserVO">
+	select * from "user" where id in(#{id}) and pwd in(#{pwd})
+</select>
 
 
 <insert id="signupinsert">

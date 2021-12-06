@@ -25,6 +25,11 @@ public class signDao implements signDaoInterface{
 		return sqlSession.insert(mapperQuery+".signupinsert",uservo);
 	}
 
+	@Override
+	public UserVO loginCheck(UserVO uservo) throws Exception {
+		return sqlSession.selectOne(mapperQuery+".loginSelect",uservo);
+	}
+
 
 
 

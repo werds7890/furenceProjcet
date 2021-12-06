@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="utf-8">
 <head>
 
@@ -31,16 +32,31 @@
 	
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<a href="login"><input type="button" value="로그인" style=float:right></a>
-				
-					<button type="button" onclick ="location.href='/user/signup'" style=float:right>회원가입</button>					
-				
-			</div>
-		</div>
-	</div>
+	<c:choose>
+		<c:when test="${sessionScope.userId==null }">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<button type="button" onclick="location.href='/user/signin'" style=float:right>로그인</button>
+						<button type="button" onclick ="location.href='/user/signup'" style=float:right>회원가입</button>					
+					</div>
+				</div>
+			</div>		
+		</c:when>
+	</c:choose>
+	
+	<c:choose>
+		<c:when test="${sessionScope.userId!=null }">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<button type="button" onclick="location.href='/user/logout'" style=float:right>logout</button>
+						<h6 style=float:right>[username] : ${sessionScope.userId } 님</h6>			
+					</div>
+				</div>
+			</div>		
+		</c:when>
+	</c:choose>
 	
 	
 	

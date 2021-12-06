@@ -21,6 +21,11 @@ public class signService implements signServiceInterface{
 	public int userSignup(UserVO uservo) throws Exception {
 		return SignDaointerface.userSignupDao(uservo);
 	}
+
+	@Override
+	public UserVO loginCheck(UserVO uservo) throws Exception {
+		return SignDaointerface.loginCheck(uservo);
+	}
 	
 	
 

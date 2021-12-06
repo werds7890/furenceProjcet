@@ -291,6 +291,7 @@
 				success : function(data) {
 					if(data==1){
 						alert("회원가입성공!");
+						location.href='signin';
 					}else if(data==0){
 						alert("회원가입 실패!");
 					}

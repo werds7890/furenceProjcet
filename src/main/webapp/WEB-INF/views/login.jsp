@@ -20,6 +20,8 @@
 		
 		<link rel="stylesheet" href="/resources/common/index.css?v=7.2.5">
 		<!-- custom sample head -->
+		
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<header class="dhx_sample-header">
@@ -52,10 +54,9 @@
 						label: "ID",
 						id:"ID",
 						placeholder: "ID를 입력해주세요!",
+						required : true,
 						validation: function(value) {
-							if(value.length >=1){
-								return true;
-							}
+							return idValid();
 						},
 						errorMessage: "Invalid id",
 						successMessage: "Correctly",
@@ -68,12 +69,13 @@
 						inputType:"password",
 						label: "Password",
 						placeholder: "패스워드를 입력해주세요!",
+						required : true,
 						errorMessage: "Invalid password",
 						successMessage: "Valid password",
 						validation: function(value){
-							return value.length>=1;
+							return pwValid();
 						},
-						name: "password",
+						name: "pwd",
 					},
 					{
 						type: "checkbox",
@@ -94,36 +96,82 @@
 					},
 				]
 			});
-			
-/* 				var real_value = form.getItem(value.target.name).getValue() + value.key;  */
-			var loginid="";
-			var loginpw="";
+				
 			const id1=form.getItem("id");
-			const pw=form.getItem("password");
-			const btn = form.getItem("loginBtn");
+			const pass=form.getItem("pwd");
+			const btn=form.getItem("loginBtn");
+			
+			function idValid(){
+				var id=document.getElementById("ID").value;
+				if(id.length>=1){
+					return true;
+				}
+			}
+			
+			function pwValid(){
+				var pw=document.getElementById("pw").value;
+				if(pw.length>=1){
+					return true;
+				}
+			}
+			
 			id1.events.on("input",function(value){
-				console.log(value);
-				loginid=id1.getValue();
-				loginpw=pw.getValue();
-				
-				if(loginid!="" && loginpw!=""){
+				id1.validate(false,value);
+			});
+			
+			pass.events.on("input",function(value){
+				pass.validate(false,value);
+			});
+		
+			form.events.on("blur",function(){
+				if(idValid() && pwValid()){
 					btn.enable();
-				}else{
+				}else {
 					btn.disable();
 				}
 			});
 			
-			pw.events.on("input",function(){
-				loginid=id1.getValue();
-				loginpw=pw.getValue();
-				
-				if(loginid!="" && loginpw!=""){
-					btn.enable();
-				}else{
-					btn.disable();
-				}
+			btn.events.on("click",function(){
+				logincheck();
 			});
 			
+			function logincheck(){
+				var loginData=JSON.stringify(form.getValue());
+				$.ajax({
+					url:'/user/signin',
+					type:"post",
+					dataType:"json",
+					contentType:'application/json; charset=utf-8',
+					data:loginData,
+					success:function(data){
+						if(data==1){
+							alert("로그인되었습니다.");
+							location.href='/';
+						}else{
+							alert("아이디 혹은 비밀번호가 틀렸습니다.");
+						}
+					}
+				});
+			}
+			/* function datasend() {
+				var datachk = JSON.stringify(form.getValue());
+				console.log(datachk);
+				$.ajax({
+					url : '/user/siginup',
+					type : "post",
+					dataType : "json",
+					contentType: 'application/json; charset=utf-8',
+					data : datachk,
+					success : function(data) {
+						if(data==1){
+							alert("회원가입성공!");
+							location.href='signin';
+						}else if(data==0){
+							alert("회원가입 실패!");
+						}
+					}
+				});
+			} */
 			
 			
 			
