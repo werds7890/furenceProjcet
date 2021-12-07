@@ -146,35 +146,16 @@
 					success:function(data){
 						if(data==1){
 							alert("로그인되었습니다.");
-							location.href='/';
+							location.href='/user/dataLoad';
 						}else{
 							alert("아이디 혹은 비밀번호가 틀렸습니다.");
 						}
 					}
 				});
 			}
-			/* function datasend() {
-				var datachk = JSON.stringify(form.getValue());
-				console.log(datachk);
-				$.ajax({
-					url : '/user/siginup',
-					type : "post",
-					dataType : "json",
-					contentType: 'application/json; charset=utf-8',
-					data : datachk,
-					success : function(data) {
-						if(data==1){
-							alert("회원가입성공!");
-							location.href='signin';
-						}else if(data==0){
-							alert("회원가입 실패!");
-						}
-					}
-				});
-			} */
-			
-			
-			
+				
 		</script>
+		
+			
 	</body>
 </html>

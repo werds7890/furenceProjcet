@@ -1,5 +1,7 @@
 package com.furence.DAO;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,8 +23,8 @@ public class signDao implements signDaoInterface{
 	}
 
 	@Override
-	public int userSignupDao(UserVO uservo) throws Exception {
-		return sqlSession.insert(mapperQuery+".signupinsert",uservo);
+	public void userSignupDao(UserVO uservo) throws Exception {
+		sqlSession.insert(mapperQuery+".signupinsert",uservo);
 	}
 
 	@Override
@@ -30,7 +32,19 @@ public class signDao implements signDaoInterface{
 		return sqlSession.selectOne(mapperQuery+".loginSelect",uservo);
 	}
 
+	@Override
+	public List<UserVO> dataLoad(UserVO uservo) throws Exception {
+		System.out.println(uservo.getKeyWord());
+		System.out.println(uservo.getContent());
+		return sqlSession.selectList(mapperQuery+".selectAll", uservo);
+	}
 
+	@Override
+	public int idOverlap(UserVO uservo) throws Exception {
+		return sqlSession.selectOne(mapperQuery+".idoverlap", uservo);
+	}
+	
+	
 
 
 }

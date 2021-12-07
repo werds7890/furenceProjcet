@@ -289,16 +289,18 @@
 				contentType: 'application/json; charset=utf-8',
 				data : datachk,
 				success : function(data) {
-					if(data==1){
+					if(data==0){
 						alert("회원가입성공!");
 						location.href='signin';
-					}else if(data==0){
-						alert("회원가입 실패!");
+					}else if(data==1){
+						alert("아이디 중복 오류!");
 					}
 				}
 			});
 		}
 	</script>
+	
+	
 
 </body>
 </html>

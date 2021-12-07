@@ -9,7 +9,21 @@ public class UserVO {
 	String desc;
 	Timestamp reg_date;
 	
+	String keyWord;
+	String content;
 	
+	public String getKeyWord() {
+		return keyWord;
+	}
+	public void setKeyWord(String keyWord) {
+		this.keyWord=keyWord;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content=content;
+	}
 	
 	public String getDesc() {
 		return desc;

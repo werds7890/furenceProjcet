@@ -106,6 +106,7 @@ public class signController {
 //		return filevo;
 //	}
 	
+	
 	@RequestMapping(value="/user/signin", method=RequestMethod.GET)
 	public String loginview() {
 		return "login";
@@ -138,13 +139,21 @@ public class signController {
 	
 	@RequestMapping(value="/user/siginup", method=RequestMethod.POST)	//사용자 가입
 	@ResponseBody
-	public int chk(@RequestBody UserVO uvo) throws Exception{
+	public int chk(@RequestBody UserVO uservo) throws Exception{
 		SimpleDateFormat conv=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String time=conv.format(uvo.getReg_date());
+		String time=conv.format(uservo.getReg_date());
 		String time2=time.substring(0,10)+" 00:00:00";
 		Timestamp t=Timestamp.valueOf(time2);
-		uvo.setReg_date(t);
-		return signService.userSignup(uvo);
+		uservo.setReg_date(t);
+		
+		int count=signService.idOverlap(uservo);	//아이디중복체크
+		if(count==0) {
+			signService.userSignup(uservo);
+		}else {
+			count=1;
+		}	
+		
+		return count;
 	}
 	
 	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
@@ -153,6 +162,15 @@ public class signController {
 		session.invalidate();
 		return "home";
 	}
+	
+	@RequestMapping(value="/user/dataLoad", method=RequestMethod.GET)
+	public String dataload(Model model,UserVO uservo) throws Exception{
+		model.addAttribute("loadData", signService.dataLoad(uservo));
+		return "home";
+	}
+	
+
+	
 	
 	
 	
