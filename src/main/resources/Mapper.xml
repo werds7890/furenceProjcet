@@ -40,7 +40,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 </select>
 
-<select id="idoverlap" resultType="int">
+<select id="idoverlap" resultType="int">	
 	select count(*) from "user" where id=#{id}
 </select>
+
+<select id="fileOverlap" resultType="int">
+	select count(*) from "user" where id=#{id}
+</select>
+
+<insert id="fileinsert">
+	insert into "user" ("id","pwd","name","level","desc","reg_date") values(#{id},#{pwd},#{name},#{level},#{desc},#{reg_date})
+</insert>
 </mapper>

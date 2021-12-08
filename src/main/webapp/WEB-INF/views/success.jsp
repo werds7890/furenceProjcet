@@ -28,9 +28,9 @@
 		<input type="button" value="파일업로드" onclick="filechk()">
 	</form>
 	
-	<c:set var="total" value="${Filevo.total }" />
-	<c:set var="suc" value="${Filevo.success }" />
-	<c:set var="fail" value="${Filevo.fail }" />
+	<c:set var="suc" value="${filevo.success }" />
+	<c:set var="fail" value="${filevo.fail }" />
+	<c:set var="total" value="${filevo.total }" />
 	
 	<c:choose>
 		<c:when test="${total==suc}">
@@ -41,15 +41,23 @@
 		</c:when>
 	</c:choose>
 	
+<table border="1">
 	<c:choose>
 		<c:when test="${total!=suc}">
 			<h3>성공 :${suc } 건</h3>
 			<h3>실패 :${fail } 건</h3>
+			<th>key</th>
+			<th>value</th>
+				<c:forEach var="entry" items="${filevo.map}">
+					<tr>
+						<td>${entry.key }</td>
+						<td>${entry.value }</td>
+					</tr>			
+				</c:forEach>
 		</c:when>
 	</c:choose>
-	
-	
-	
+</table>
+
 	
 </body>
 </html>
