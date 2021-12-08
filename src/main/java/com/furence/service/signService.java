@@ -13,11 +13,7 @@ public class signService implements signServiceInterface{
 	@Inject
 	private signDaoInterface SignDaointerface;
 	
-	@Override
-	public int Datainsert(UserVO uservo) throws Exception {
-		int a=SignDaointerface.DataInsert(uservo);
-		return a;
-	}
+	
 
 	@Override
 	public void userSignup(UserVO uservo) throws Exception {

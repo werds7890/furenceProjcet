@@ -280,18 +280,17 @@
 		});
 
 		function datasend() {
-			var datachk = JSON.stringify(form.getValue());
-			console.log(datachk);
+			var datachk = JSON.stringify(form.getValue());	//폼에 있는 벨류들을 전부 제이슨 문자열로 변환?
 			$.ajax({
 				url : '/user/siginup',
 				type : "post",
 				dataType : "json",
-				contentType: 'application/json; charset=utf-8',
+				contentType: 'application/json; charset=utf-8',		//데이터의 형식이 json이기 때문에 그에 맞춰서 컨텐츠타입을 새로 지정해준다.
 				data : datachk,
 				success : function(data) {
-					if(data==0){
+					if(data==0){			//반환 받은 데이터가 0이라면 (중복이 없다면 회원가입성공)로그인 창으로 이동 1이라면 아이디중복오류로 경고창을 띄워준다.
 						alert("회원가입성공!");
-						location.href='signin';
+						location.href='signin';	
 					}else if(data==1){
 						alert("아이디 중복 오류!");
 					}

@@ -15,12 +15,6 @@ public class signDao implements signDaoInterface{
 	
 	@Inject
 	private SqlSession sqlSession;
-	
-	@Override
-	public int DataInsert(UserVO uservo) throws Exception {
-		return sqlSession.insert(mapperQuery+".userinsert",uservo);
-		
-	}
 
 	@Override
 	public void userSignupDao(UserVO uservo) throws Exception {

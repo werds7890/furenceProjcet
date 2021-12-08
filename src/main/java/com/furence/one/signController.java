@@ -42,17 +42,18 @@ public class signController {
 		System.out.println("ID:"+uservo.getId());
 		System.out.println("PWD:"+uservo.getPwd());
 		int checkP = 0;
-		UserVO loginData=signService.loginCheck(uservo);
-		if(loginData!=null) {
+		UserVO loginData=signService.loginCheck(uservo);	//유저아이디와 비밀번호를 들고 select 해보고 그 결과를 resultType의 uservo로받아
+		//매핑이 된다면 체크포인트1과 세션을 생성하여 세션에 값을 저장해준다.
+		if(loginData!=null) {								
 			System.out.println("login ok!");
 			checkP=1;
 			HttpSession session=request.getSession();
 			session.setAttribute("userId", loginData.getId());
-		}else if(loginData==null){
+		}else if(loginData==null){	//매핑이 되지 않는다면 체크포인트를 0으로 선언
 			System.out.println("login fail!");
 			checkP=0;
 		}
-		return checkP;
+		return checkP;	// int형으로 리턴
 	}
 	
 	
@@ -63,20 +64,20 @@ public class signController {
 	
 	@RequestMapping(value="/user/siginup", method=RequestMethod.POST)	//사용자 가입
 	@ResponseBody
-	public int chk(@RequestBody UserVO uservo) throws Exception{
-		SimpleDateFormat conv=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String time=conv.format(uservo.getReg_date());
-		String time2=time.substring(0,10)+" 00:00:00";
-		Timestamp t=Timestamp.valueOf(time2);
+	public int chk(@RequestBody UserVO uservo) throws Exception{	//요청한 데이터를 uservo로 받아주고
+		SimpleDateFormat conv=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	//형식지정
+		String time=conv.format(uservo.getReg_date());	//문자열로 반환
+		String time2=time.substring(0,10)+" 00:00:00";	//뒤에 임의의 시간은 덜어내고 00시00분00초로 고정
+		Timestamp t=Timestamp.valueOf(time2);	//형변환
 		uservo.setReg_date(t);
 		
 		int count=signService.idOverlap(uservo);	//아이디중복체크
-		if(count==0) {
+		if(count==0) {								//중복되는 아이디가 있는지 카운트 해보고 없다면 인서트한다.
 			signService.userSignup(uservo);
 		}else {
-			count=1;
+			count=1;								//중복되는 아이디가 있다면 카운트가 1
 		}	
-		return count;
+		return count;								//int로 반환
 	}
 	
 	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
@@ -88,7 +89,7 @@ public class signController {
 	
 	@RequestMapping(value="/user/dataLoad", method=RequestMethod.GET)
 	public String dataload(Model model,UserVO uservo) throws Exception{
-		model.addAttribute("loadData", signService.dataLoad(uservo));
+		model.addAttribute("loadData", signService.dataLoad(uservo));	//데이터를 리스트로 전부 가져와서 리턴한다.
 		return "home";
 	}
 	

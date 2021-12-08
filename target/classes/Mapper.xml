@@ -5,21 +5,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.furence.DAO">
 
-<select id="loginSelect" resultType="com.furence.VO.UserVO">
+<select id="loginSelect" resultType="com.furence.VO.UserVO">		<!--아이디와 비밀번호가 맞는지 체크하는 쿼리문  -->
 	select * from "user" where id in(#{id}) and pwd in(#{pwd})
 </select>
 
 
-<insert id="signupinsert">
+<insert id="signupinsert">				<!--회원가입 insert 쿼리문  -->
 	insert into "user" ("id","pwd","name","level","desc","reg_date") values(#{id},#{pwd},#{name},#{level},#{desc},#{reg_date})
 </insert>
 
 <select id="selectAll" parameterType="com.furence.VO.UserVO" resultType="com.furence.VO.UserVO">
-	select*from "user"
-	<if test="keyWord != null">
+	select*from "user"					<!--로그인을 처음 하였을때는 데이터를 모두 보여준다.  -->
+	<if test="keyWord != null">			<!--키워드는 무엇으로 검색할것인지? 키워드는 널값이 아니여야 한다. -->
 		<choose>
-			<when test="keyWord.equals('id')">
-				where id like '%${content}%'
+			<when test="keyWord.equals('id')">		<!--아이디로 검색할때  -->
+				where id like '%${content}%'			<!--컨텐츠는 유저가 쓴 글로 검색한다는 의미  -->
 			</when>
 		</choose>
 		<choose>
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 </select>
 
-<select id="idoverlap" resultType="int">	
+<select id="idoverlap" resultType="int">	<!--아이디를 중복검사한다. 0이면 중복X 1이상이라면 중복O resultType은 int로 반환해준다. -->
 	select count(*) from "user" where id=#{id}
 </select>
 
