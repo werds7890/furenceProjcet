@@ -144,9 +144,10 @@ body {
 			<form action="/user/dataLoad" method="get">
 			
 				<select name="keyWord">
+					<option value="all" selected>전체</option>
 		    		<option value="level">레벨</option>
 		    		<option value="name">이름</option>
-		    		<option value="id" selected>아이디</option>
+		    		<option value="id">아이디</option>
 		    		<option value="password">비밀번호</option>
 				</select>
 				

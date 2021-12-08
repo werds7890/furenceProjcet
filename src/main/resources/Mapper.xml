@@ -19,7 +19,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<if test="keyWord != null">
 		<choose>
 			<when test="keyWord.equals('id')">
-				where id= #{content}
+				where id like '%${content}%'
+			</when>
+		</choose>
+		<choose>
+			<when test="keyWord.equals('password')">
+				where pwd like '%${content}%'
+			</when>
+		</choose>
+		<choose>
+			<when test="keyWord.equals('level')">
+				where level like '%${content}%'
+			</when>
+		</choose>
+		<choose>
+			<when test="keyWord.equals('name')">
+				where name like '%${content}%'
 			</when>
 		</choose>
 	</if>

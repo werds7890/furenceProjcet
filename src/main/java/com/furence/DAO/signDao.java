@@ -34,8 +34,6 @@ public class signDao implements signDaoInterface{
 
 	@Override
 	public List<UserVO> dataLoad(UserVO uservo) throws Exception {
-		System.out.println(uservo.getKeyWord());
-		System.out.println(uservo.getContent());
 		return sqlSession.selectList(mapperQuery+".selectAll", uservo);
 	}
 
