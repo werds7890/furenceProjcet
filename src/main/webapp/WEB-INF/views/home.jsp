@@ -115,7 +115,9 @@ body {
 			        });
 			    	</c:forEach>
 			</script>
+	
 
+	
 			<!-- component container -->
 			<div id="widget" style="height: 500px; padding: 20px 20px 0;"></div>
 			<div id="pagination" style="padding: 0 20px;"></div>
@@ -123,12 +125,12 @@ body {
 			<script>
 				const grid = new dhx.Grid("widget", {
 				    columns: [
-				        { id: "id", autoWidth: true, header: [{ text: "ID" }] },
-				        { id: "pwd", autoWidth: true, header: [{ text: "PASSWORD" }] },
-				        { id: "name", autoWidth: true, header: [{ text: "NAME" }] },
-				        { id: "level", autoWidth: true, header: [{ text: "LEVEL" }] },
-				        { id: "desc", autoWidth: true, header: [{ text: "DESC" }] },
-				        { id: "time", autoWidth: true, header: [{ text: "TIME" }] }
+				        { id: "id", autoWidth: true, header: [{ text: "아이디" }] },
+				        { id: "pwd", autoWidth: true, header: [{ text: "패스워드" }] },
+				        { id: "name", autoWidth: true, header: [{ text: "이름" }] },
+				        { id: "level", autoWidth: true, header: [{ text: "레벨" }] },
+				        { id: "desc", autoWidth: true, header: [{ text: "자기소개" }] },
+				        { id: "time", autoWidth: true, header: [{ text: "생년월일" }] }
 				    ]
 				});
 	
@@ -142,8 +144,8 @@ body {
 			</script>
 			
 			<form action="/user/dataLoad" method="get">
-			
-				<select name="keyWord">
+				
+				<select name="keyWord" id="key" onchange="changeEvent()">
 					<option value="all" selected>전체</option>
 		    		<option value="level">레벨</option>
 		    		<option value="name">이름</option>
@@ -151,13 +153,22 @@ body {
 		    		<option value="password">비밀번호</option>
 				</select>
 				
-				<input type="text" name="content">
-				
+				<input type="text" name="content" id="real">
 				<input type="submit" value="조회">			
 			</form>		
-		
+			
 		</c:when>
 	</c:choose>
-
+	
+	<!-- <script>
+		function changeEvent(){
+			var keySelect=document.getElementById("key");
+			var keyValue=keySelect.options[keySelect.selectedIndex].value;
+			if(keyValue=="level"){
+				
+			}
+		}
+	</script> -->
+	
 </body>
 </html>

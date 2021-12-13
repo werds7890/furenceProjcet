@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.furence.VO.UserVO;
+import com.furence.VO.Uservo;
 @Repository
-public class signDao implements signDaoInterface{
+public class Signdao implements SigndaoInterface{
 
 	private static String mapperQuery="com.furence.DAO";
 	
@@ -17,22 +17,22 @@ public class signDao implements signDaoInterface{
 	private SqlSession sqlSession;
 
 	@Override
-	public void userSignupDao(UserVO uservo) throws Exception {
+	public void userSignupDao(Uservo uservo) throws Exception {
 		sqlSession.insert(mapperQuery+".signupinsert",uservo);
 	}
 
 	@Override
-	public UserVO loginCheck(UserVO uservo) throws Exception {
+	public Uservo loginCheck(Uservo uservo) throws Exception {
 		return sqlSession.selectOne(mapperQuery+".loginSelect",uservo);
 	}
 
 	@Override
-	public List<UserVO> dataLoad(UserVO uservo) throws Exception {
+	public List<Uservo> dataLoad(Uservo uservo) throws Exception {
 		return sqlSession.selectList(mapperQuery+".selectAll", uservo);
 	}
 
 	@Override
-	public int idOverlap(UserVO uservo) throws Exception {
+	public int idOverlap(Uservo uservo) throws Exception {
 		return sqlSession.selectOne(mapperQuery+".idoverlap", uservo);
 	}
 	

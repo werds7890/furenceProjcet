@@ -5,16 +5,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.furence.DAO">
 
-<select id="loginSelect" resultType="com.furence.VO.UserVO">		<!--아이디와 비밀번호가 맞는지 체크하는 쿼리문  -->
+<select id="loginSelect" resultType="com.furence.VO.Uservo">		<!--아이디와 비밀번호가 맞는지 체크하는 쿼리문  -->
 	select * from "user" where id in(#{id}) and pwd in(#{pwd})
 </select>
 
 
 <insert id="signupinsert">				<!--회원가입 insert 쿼리문  -->
-	insert into "user" ("id","pwd","name","level","desc","reg_date") values(#{id},#{pwd},#{name},#{level},#{desc},#{reg_date})
+	insert into "user" ("id","pwd","name","level","desc","reg_date") values(#{id},#{pwd},#{name},#{level},#{desc},#{reg_date}::timestamp)
 </insert>
 
-<select id="selectAll" parameterType="com.furence.VO.UserVO" resultType="com.furence.VO.UserVO">
+<select id="selectAll" parameterType="com.furence.VO.Uservo" resultType="com.furence.VO.Uservo">
 	select*from "user"					<!--로그인을 처음 하였을때는 데이터를 모두 보여준다.  -->
 	<if test="keyWord != null">			<!--키워드는 무엇으로 검색할것인지? 키워드는 널값이 아니여야 한다. -->
 		<choose>
@@ -49,6 +49,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <insert id="fileinsert">
-	insert into "user" ("id","pwd","name","level","desc","reg_date") values(#{id},#{pwd},#{name},#{level},#{desc},#{reg_date})
+	insert into "user" ("id","pwd","name","level","desc","reg_date") values(#{id},#{pwd},#{name},#{level},#{desc},#{reg_date}::timestamp)
 </insert>
+
+<select id="fileload" resultType="com.furence.VO.Uservo">
+	select*from "user"
+</select>
 </mapper>

@@ -140,22 +140,22 @@
 				$.ajax({
 					url:'/user/signin',
 					type:"post",
-					dataType:"json",
 					contentType:'application/json; charset=utf-8',
 					data:loginData,
 					success:function(data){
-						if(data==1){	//반환된 데이터가 1이라면(아이디와 패스워드가 매핑이 됐다면) 로그인 완료와 함께 홈화면과 DB에있는 데이터들을 전부보여준다.
 							alert("로그인되었습니다.");
 							location.href='/user/dataLoad';
-						}else{	//반환된 데이터가 1이 아니라면(아이디와 패스워드가 매핑이 안됐을때) 경고창을 띄워준다.
+					},error:function(data){
+						console.log(data);
+						if(data.status==401){
 							alert("아이디 혹은 비밀번호가 틀렸습니다.");
+						}else {
+							alert("서버측 기타오류");
 						}
 					}
 				});
 			}
-				
 		</script>
-		
 			
 	</body>
 </html>

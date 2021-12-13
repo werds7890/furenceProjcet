@@ -6,6 +6,8 @@
 <head>
 	<title>Home</title>
 	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
 	<script>
 		function filechk(){
 			var chk=document.getElementById('chkid');
@@ -20,7 +22,48 @@
 		}
 	</script>
 	
+	<script>
+		function successLoad(){
+				
+			$.ajax({
+				url:'fileLoad',
+				type:'get',
+				dataType:"json",
+				success:function(data){
+					
+				}
+			});
+		}
+		
+	</script>
+	
 </head>
+
+
+				<!-- let str = "<table align='center' border='1'>";
+					str += "<tr>" +
+					"<th>ID</th><th>PW</th>"+
+					"<th>NAME</th><th>LEVEL</th>"+
+					"<th>DESC</th><th>REG_DATE</th></tr>";
+					$.each(data, function(i,item){
+						str += "<tr>";
+						str += "<td>" + item.id + "</td>";
+						str += "<td>" + item.pwd+ "</td>";
+						str += "<td>" + item.name + "</td>";
+						str += "<td>" + item.level + "</td>";
+						str += "<td>" + item.desc + "</td>";
+						str += "<td>" + item.reg_date + "</td></tr>";
+					});
+					str += "</table>";
+					 $("#userList").html(str);	 -->		
+							
+							
+
+
+
+
+
+
 <body>
 
 	<form action="uploadfile" method="post" enctype="multipart/form-data" id="chkid">
@@ -37,7 +80,7 @@
 			<h1>전체성공!</h1>
 			<h2>총 데이터 : ${total }</h2>
 			<h2>${suc } 건 성공</h2>
-			<input type="button" value="조회하기" onclick="">
+			<input type="button" value="조회하기" onclick="successLoad()">
 		</c:when>
 	</c:choose>
 	
@@ -56,6 +99,9 @@
 				</c:forEach>
 		</c:when>
 	</c:choose>
+	<div id="userList">
+	
+	</div>
 </table>
 
 	

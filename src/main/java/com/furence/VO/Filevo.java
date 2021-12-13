@@ -3,7 +3,7 @@ package com.furence.VO;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FileVO {
+public class Filevo {
 	int success=0;
 	int fail=0;
 	int total=0;

@@ -1,14 +1,16 @@
 package com.furence.DAO;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.furence.VO.UserVO;
+import com.furence.VO.Uservo;
 
 @Repository
-public class fileDao implements fileDaoInterface{
+public class Filedao implements FiledaoInterface{
 	
 	private static String mapperQuery="com.furence.DAO";
 	
@@ -21,7 +23,12 @@ public class fileDao implements fileDaoInterface{
 	}
 
 	@Override
-	public int dbInsert(UserVO uservo) throws Exception {
+	public int dbInsert(Uservo uservo) throws Exception {
 		return sqlSession.insert(mapperQuery+".fileinsert",uservo);
+	}
+
+	@Override
+	public List<Uservo> fileLoad() throws Exception {
+		return sqlSession.selectList(mapperQuery+".fileload");
 	}
 }

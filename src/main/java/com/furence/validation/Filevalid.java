@@ -1,6 +1,6 @@
 package com.furence.validation;
 
-public class fileValid {
+public class Filevalid {
 	//컬럼수체크
 	public boolean columnCheck(String one) {
 		String[] cut=one.split("/");

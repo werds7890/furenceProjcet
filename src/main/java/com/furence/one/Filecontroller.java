@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -17,27 +18,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.furence.VO.FileVO;
-import com.furence.VO.UserVO;
-import com.furence.service.fileServiceInterface;
-import com.furence.service.signServiceInterface;
-import com.furence.validation.fileValid;
+import com.furence.VO.Filevo;
+import com.furence.VO.Uservo;
+import com.furence.service.FileserviceInterface;
+import com.furence.service.SignserviceInterface;
+import com.furence.validation.Filevalid;
 
 @Controller
-public class fileController {
-	@Inject
-	private signServiceInterface signService;
+public class Filecontroller {
 	
 	@Inject
-	private fileServiceInterface fileService;
+	private FileserviceInterface fileService;
 	
 	@RequestMapping(value = "uploadfile", method = RequestMethod.POST)
 	public String fileupload(@RequestParam("uploadFile") MultipartFile file, Model model) throws Exception,IOException{
-		fileValid valid=new fileValid();
-		UserVO uservo=new UserVO();
-		FileVO filevo=new FileVO();
+		Filevalid valid=new Filevalid();
+		Uservo uservo=new Uservo();
+		Filevo filevo=new Filevo();
 		Map<Integer,String> map=new HashMap<Integer,String>();
 		int failcount=0;
 		
@@ -65,13 +65,11 @@ public class fileController {
 							uservo.setDesc(filesplit[4]);
 			
 							String time = filesplit[5];
-							Timestamp t = Timestamp.valueOf(time);
-							uservo.setReg_date(t);
+							uservo.setReg_date(time);
 							
 							int count=fileService.dbInsert(uservo);
 							filevo.setSuccess(count);	//성공횟수 카운트
 					}else {
-						System.out.println("유효성검사 실패");
 						filevo.setFail(1);	//실패횟수 카운트
 						failcount=failcount+1;
 						map.put(failcount,one);
@@ -82,6 +80,13 @@ public class fileController {
 				model.addAttribute("filevo", filevo);
 			}
 		return "success";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="fileLoad", method=RequestMethod.GET)
+	public List<Uservo> dataload(Model model)throws Exception {
+	 List<Uservo> fileload=fileService.fileLoad();
+		return fileload;
 	}
 	
 }
